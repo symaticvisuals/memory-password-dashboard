@@ -10,6 +10,7 @@ import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import { axiosRequest } from '../../../utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +41,13 @@ export default function LoginForm() {
   } = methods;
 
   const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
+    // navigate('/dashboard', { replace: true });
+    axiosRequest({
+      url: '/serviceUser/404',
+      method: 'get',
+    }).then((res) => {
+      console.log(res);
+    });
   };
 
   return (

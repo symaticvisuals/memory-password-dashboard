@@ -10,6 +10,7 @@ import { LoadingButton } from '@mui/lab';
 
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import { axiosRequest } from '../../../utils/axios';
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -49,8 +50,23 @@ export default function RegisterForm() {
 
   const onSubmit = async () => {
     navigate('/dashboard', { replace: true });
+
     console.log(methods.getValues());
-  };
+    const data = {
+      ...methods.getValues(),
+      name: `${methods.getValues().firstName} ${methods.getValues().lastName}`,
+    };
+
+    // CHECK HERE POST REQUEST
+    axiosRequest({
+      url: '/serviceUser/registerServiceUser',
+      method: 'post',
+      data,
+    }).then((res) => {
+      console.log(res);
+    });
+    // ----------------------------------------------------------------------
+  };;
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
