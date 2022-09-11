@@ -11,6 +11,7 @@ import DashboardApp from './pages/DashboardApp';
 import Projects from './pages/Projects';
 
 import ProjectDetails from './pages/ProjectDetails';
+import EmailAuth from './sections/auth/register/emailAuth';
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +36,7 @@ export default function Router() {
     {
       path: 'register',
       element: <Register />,
+      children: [{ path: 'emailAuth', element: <EmailAuth /> }],
     },
     {
       path: '/',

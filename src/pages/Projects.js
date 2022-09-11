@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -14,6 +15,8 @@ import { FormProvider, RHFTextField } from '../components/hook-form';
 import Page from '../components/Page';
 import GeneratedCode from '../sections/GeneratedCode';
 import { ProductList } from '../sections/@dashboard/products';
+import { axiosRequest } from '../utils/axios';
+import EmailAuth from '../sections/auth/register/emailAuth';
 
 export default function Projects() {
   const ProjectSchema = Yup.object().shape({
@@ -37,6 +40,19 @@ export default function Projects() {
   const onSubmit = async () => {
     console.log(methods.getValues());
     /* Create new Project */
+    const data = {
+      ...methods.getValues(),
+    };
+
+    axiosRequest({
+      url: '/serviceUser/createProject',
+      method: 'post',
+      data,
+    }).then((res) => {
+      console.log(res);
+      setSecretkey(res.secretkey);
+      // Set Secret Key
+    });
   };
   const params = useParams();
 

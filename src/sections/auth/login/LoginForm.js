@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -41,12 +42,20 @@ export default function LoginForm() {
   } = methods;
 
   const onSubmit = async () => {
-    // navigate('/dashboard', { replace: true });
+    navigate('/dashboard', { replace: true });
+
+    console.log(methods.getValues());
+    const data = {
+      ...methods.getValues(),
+    };
+
     axiosRequest({
-      url: '/serviceUser/404',
-      method: 'get',
+      url: '/serviceUser/login',
+      method: 'post',
+      data,
     }).then((res) => {
       console.log(res);
+      Cookies.set('jwt', JSON.toString(res), { expires: 365 });
     });
   };
 

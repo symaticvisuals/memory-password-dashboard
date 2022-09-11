@@ -49,8 +49,6 @@ export default function RegisterForm() {
   } = methods;
 
   const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
-
     console.log(methods.getValues());
     const data = {
       ...methods.getValues(),
@@ -64,9 +62,10 @@ export default function RegisterForm() {
       data,
     }).then((res) => {
       console.log(res);
+      navigate('/register/emailAuth', { replace: true });
     });
     // ----------------------------------------------------------------------
-  };;
+  };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
